@@ -1,0 +1,74 @@
+<!-- Main -->
+<div id="main">
+
+    <!-- Me -->
+    <article id="main" class="panel intro">
+        <header style="padding-right: 1.5em;">
+            <div id="container" style="position: relative;">
+                <div id="comment">
+                    <span style="line-height:130%">
+                        <p style="font-size: 1em;"><b style="color: #5DA7DB">{{emotion}}</b>의 감정을 느끼고 계신</p>
+                        <p style="font-size: 1em;">&nbsp; 당신에게 추천해드리고 싶은 곡은</p>
+                        <br>
+                    </span>
+                    <p>{{main['Artist']}}</p>
+                </div>
+                <div id="songInfo">
+                    <h1 style="
+                    display: inline;
+                    text-align:right;
+                    width: 70%;
+                    overflow-x: scroll;
+                    white-space: nowrap;
+                    float:right;">
+                        {{main['TrackName']}}
+                    </h1>
+                </div>
+                <div id="progress" style="position: relative; width: 50%; float: left; font-size: small;">
+                    <div id="energy"><p style="clear: left;">Energy</p><progress style="float: left;" value={{main['Energy']}} min="0" max="1">Energy</progress></div>
+                    <div id="danceability"><p style="clear: left;">Danceability</p><progress style="float: left;" value={{main['Danceability']}} min="0" max="1">Danceability</progress></div>
+                    <div id="valence"><p style="clear: left;">Valence</p><progress style="float: left;" value={{main['Valence']}} min="0" max="1">Valence</progress></div>
+                </div>
+                {% if main['Preview'][0] != Un %}
+                <div id="preview" style="position: relative; width: 40%; float: right;">
+                    <video controls autoplay name="media" style="float: right;">
+                        <source src={{main['Preview']}} type="audio/mpeg">
+                    </video>
+                </div>
+                {% endif %}
+                <!-- <p>Audio_Feature 등등</p> -->
+            </div>
+        </header>
+
+        <!-- <div>
+            <a href="/" class="pic">
+                <img src="{{main['IMG']}}" alt="" />
+            </a>
+        </div> -->
+        <a href="{{main['SongURL']}}" class="pic">
+            <img src="{{main['IMG']}}" alt="" />
+        </a>
+
+    </article>
+
+
+    <!-- playlist -->
+    <article id="playlist" class="panel">
+        <header>
+            <h2>연관된 추천 플레이리스트</h2>
+        </header>
+        <p>
+            {{emotion}}의 감정과 연관된 플레이리스트 입니다. (클릭하면 해당 노래 Spotify 사이트로 이동)
+        </p>
+        <section>
+            <div class="row">
+                {% for num in range(other|length) %}
+                <div class="col-4 col-6-medium col-12-small">
+                    <a href="{{other.iloc[num,4]}}" class="image fit"><img src="{{other.iloc[num,3]}}" alt=""></a>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </article>
+
+</div>

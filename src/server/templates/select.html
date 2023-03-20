@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>어떤 노래가 필요하신가요?</title>
+	<style type="text/css">
+		body {
+			background: #2ecc71;
+			font-size: 62.5%;
+		}
+
+		.emotion {
+			color:  #2e3bcc;
+		}
+
+		.title {
+			margin-top: 1in;
+			margin-bottom: 1in;
+			font-size: x-large;
+			font-weight: bold;
+			text-align: center;
+			color: #fff;
+
+		}
+
+		.container {
+			padding: 2em;
+			float: right;
+			position: relative;
+			left: -50%;
+		}
+
+		/* GENERAL BUTTON STYLING */
+		button,
+		button::after {
+			-webkit-transition: all 0.3s;
+			-moz-transition: all 0.3s;
+			-o-transition: all 0.3s;
+			transition: all 0.3s;
+		}
+
+		button {
+			width: 450px;
+			height: 500px;
+			float: left;
+			left: 50%;
+			background: none;
+			border: 3px solid #fff;
+			border-radius: 5px;
+			color: #fff;
+			display: block;
+			font-size: 1.6em;
+			font-weight: bold;
+			margin: 1em auto;
+			margin-right: 30px;
+			margin-left: 30px;
+			padding: 2em 6em;
+			position: relative;
+			text-transform: uppercase;
+		}
+
+		button::before,
+		button::after {
+			background: #fff;
+			content: '';
+			position: absolute;
+			z-index: -1;
+		}
+
+		button:hover {
+			color: #2ecc71;
+		}
+
+		/* BUTTON 1 */
+		.btn-1::after {
+			height: 0;
+			left: 0;
+			top: 0;
+			width: 100%;
+		}
+
+		.btn-1:hover:after {
+			height: 100%;
+		}
+
+		/* BUTTON 2 */
+		.btn-2::after {
+			height: 100%;
+			left: 0;
+			top: 0;
+			width: 0;
+		}
+
+		.btn-2:hover:after {
+			width: 100%;
+		}
+
+		/* BUTTON 3 */
+		.btn-3::after {
+			height: 0;
+			left: 50%;
+			top: 50%;
+			width: 0;
+		}
+
+		.btn-3:hover:after {
+			height: 100%;
+			left: 0;
+			top: 0;
+			width: 100%;
+		}
+
+		/* BUTTON 4 */
+		.btn-4::before {
+			height: 100%;
+			left: 0;
+			top: 0;
+			width: 100%;
+		}
+
+		.btn-4::after {
+			background: #2ecc71;
+			height: 100%;
+			left: 0;
+			top: 0;
+			width: 100%;
+		}
+
+		.btn-4:hover:after {
+			height: 0;
+			left: 50%;
+			top: 50%;
+			width: 0;
+		}
+
+		/* BUTTON 5 */
+		.btn-5 {
+			overflow: hidden;
+		}
+
+		.btn-5::after {
+			/*background-color: #f00;*/
+			height: 100%;
+			left: -35%;
+			top: 0;
+			transform: skew(50deg);
+			transition-duration: 0.6s;
+			transform-origin: top left;
+			width: 0;
+		}
+
+		.btn-5:hover:after {
+			height: 100%;
+			width: 135%;
+		}
+	</style>
+	<script type="text/javascript">
+		function btnClick(selection) {
+			var container = document.getElementById("select")
+			container.value = selection
+		}
+	</script>
+</head>
+
+<body>
+	<div class="title">{{frontPart}}<b class="emotion"> {{emotion}}</b>{{backPart}}</div>
+	<div class="container">
+		<form action="/userSelection" method="POST" >
+			<input type="hidden" id="select" name="select" value="NONE">
+			<input type="hidden" id="emotion" name="emotion" value={{emotion}}>
+			{% for i in range(comment|length) %}
+			<button class='btn-{{i+1}}' type="submit"  onclick='btnClick("{{comment[i][3]}}");'>
+				<h2>{{comment[i][0]}}</h2>
+				<h4>{{comment[i][1]}}</h4>
+				<h3>{{comment[i][2]}}</h3>
+			</button>
+			{% endfor %}
+			<!-- <button class="btn-4">Button 4</button>
+			<button class="btn-5">Button 5</button> -->
+		</form>
+	</div>
+</body>
+
+</html>
